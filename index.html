@@ -1,22 +1,78 @@
-<！doctype 超文本标记语言>
-<超文本标记语言 朗="zh-CN">
-<头>
-  <元 字符集="UTF-8">
-  <标题>我的第一个韦塞尔网站</标题>
-  <风格>
-身体 {
-字体系列：Arial，无衬线；
-文字对齐：中心；
-上距离：100px；
-背景：#f5f5f5；
-    }
-H1{
-颜色：#0070f3；
-    }
-  </风格>
-</头>
-<身体>
-  <H1>🎉    部署成功！</H1>
-  <p>这是我用韦塞尔部署的第一个网页。</p>
-</身体>
-</超文本标记语言>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>周健哲 | 大沙坝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            /* 修改为浅蓝渐变背景 */
+            background: linear-gradient(135deg, #b8e0f8, #d6ecfa);
+            color: #223a4c;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            text-align: center;
+            border: 1px solid rgba(34, 58, 76, 0.2);
+            padding: 60px 40px;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            background: rgba(255,255,255,0.4);
+        }
+        h1 {
+            font-size: 48px;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            color: #1a3447;
+        }
+        .place {
+            font-size: 26px;
+            letter-spacing: 4px;
+            color: #2b6890;
+            margin-bottom: 40px;
+        }
+        .line {
+            width: 220px;
+            height: 1px;
+            background: rgba(34, 58, 76, 0.3);
+            margin: 0 auto 40px;
+        }
+        .desc {
+            font-size: 16px;
+            line-height: 1.8;
+            opacity: 0.85;
+            max-width: 420px;
+        }
+        footer {
+            margin-top: 50px;
+            font-size: 13px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>周健哲</h1>
+        <div class="place">大沙坝</div>
+        <div class="line"></div>
+        <div class="desc">
+            此间山河风物，寄于大沙坝一隅<br>
+            风物绵长，静守一方光景
+        </div>
+    </div>
+    <footer>
+        © 周健哲 · DASHA BA
+    </footer>
+</body>
+</html>
