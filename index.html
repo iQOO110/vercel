@@ -3,76 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>周健哲 | 大沙坝</title>
+    <title>每日膜拜洛琪希圣遗物 🙏</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Microsoft YaHei", sans-serif;
         }
         body {
+            background: #07060c;
+            color: #e2d9f8;
+            font-family: "Microsoft Yahei", serif;
             min-height: 100vh;
-            /* 修改为浅蓝渐变背景 */
-            background: linear-gradient(135deg, #b8e0f8, #d6ecfa);
-            color: #223a4c;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
+            padding: 50px 20px;
+            gap: 35px;
         }
-        .container {
+        .main-title {
+            font-size: 38px;
+            letter-spacing: 6px;
+            color: #c8b0ff;
+            text-shadow: 0 0 15px #9d7dff;
+        }
+        .pray-card {
+            width: min(540px, 100%);
+            background: linear-gradient(165deg, #1b1630, #0d0a1c);
+            border: 2px solid #8b6cf0;
+            border-radius: 20px;
+            padding: 28px;
             text-align: center;
-            border: 1px solid rgba(34, 58, 76, 0.2);
-            padding: 60px 40px;
+            box-shadow: 0 0 30px rgba(139,108,240,0.25);
+        }
+        .relic-pic {
+            width: 100%;
+            max-height: 420px;
+            object-fit: contain;
             border-radius: 12px;
-            backdrop-filter: blur(8px);
-            background: rgba(255,255,255,0.4);
+            margin-bottom: 26px;
         }
-        h1 {
-            font-size: 48px;
-            letter-spacing: 8px;
-            margin-bottom: 20px;
-            color: #1a3447;
+        .relic-title {
+            font-size: 28px;
+            color: #d4c0ff;
+            margin-bottom: 16px;
         }
-        .place {
-            font-size: 26px;
-            letter-spacing: 4px;
-            color: #2b6890;
-            margin-bottom: 40px;
+        .pray-text {
+            font-size: 18px;
+            line-height: 1.9;
+            color: #d1c7f2;
         }
-        .line {
-            width: 220px;
-            height: 1px;
-            background: rgba(34, 58, 76, 0.3);
-            margin: 0 auto 40px;
+        .emoji-big {
+            font-size: 40px;
+            margin: 12px 0;
         }
-        .desc {
-            font-size: 16px;
-            line-height: 1.8;
-            opacity: 0.85;
-            max-width: 420px;
-        }
-        footer {
-            margin-top: 50px;
-            font-size: 13px;
-            opacity: 0.5;
+        .foot-tip {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #998acc;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>周健哲</h1>
-        <div class="place">大沙坝</div>
-        <div class="line"></div>
-        <div class="desc">
-            此间山河风物，寄于大沙坝一隅<br>
-            风物绵长，静守一方光景
-        </div>
+    <h1 class="main-title">虔诚膜拜洛琪希圣遗物</h1>
+
+    <div class="pray-card">
+        <!-- 替换成你的洛琪希图片链接，本地图就写 relic.png -->
+        <img class="relic-pic" src="1784563606750.png" alt="洛琪希圣遗物">
+        <h2 class="relic-title">洛琪希传世圣遗物 🙏</h2>
+        <div class="emoji-big">🙏🙏🙏</div>
+        <p class="pray-text">
+            每日一拜洛琪希圣遗物，诚心祈福<br>
+            保佑抽卡必出双爆、强化绝不歪词条<br>
+            水魔法庇佑，所有胚子全部满分毕业<br>
+            心诚则灵，跪拜洛琪希永不非酋 🙏
+        </p>
     </div>
-    <footer>
-        © 周健哲 · DASHA BA
-    </footer>
+
+    
 </body>
 </html>
