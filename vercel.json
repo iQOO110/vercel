@@ -1,16 +1,10 @@
 {
-  "version": 2,
-  "builds": [
+  "headers": [
     {
-      "src": "*.html",
-      "use": "@vercel/static"
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, no-cache" }
+      ]
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*).html",
-      "destination": "/$1.html"
-    }
-  ],
-  "cleanUrls": false
+  ]
 }
