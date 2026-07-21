@@ -19,7 +19,7 @@
 <script src="/zftal-ui-v5-1.0.2/assets/js/respond.min.js?ver=29742790" type="text/javascript" charset="utf-8"></script>
 <![endif]-->
 <!--Bootbox弹窗插件-->
-<link rel="stylesheet" type="text/css" href="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/plugins/bootbox/css/bootbox.css?ver=29742790">
+<link rel="stylesheet" type="text/css" href="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/plugins/bootbox/css/bootbox.css?ver=2974279">
 	
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -27,13 +27,140 @@
 <link rel="stylesheet" type="text/css" href="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/plugins/bootbox/css/bootbox-min.css?ver=29742790">
 <link type="text/css" rel="stylesheet" href="https://jwxt.sdmu.edu.cn/jwglxt/css/qcode.css?ver=29742790">
 
-<!-- 你指定的底部版权固定样式 -->
+<!-- 底部版权固定样式 -->
 <style>
 /* 底部版权固定样式 */
 .copyright-footer {
     margin-top:40px;
     padding:20px 15px;
     color:#666;
+    font-size:14px;
+    text-align:center;
+}
+.copyright-footer p {
+    margin: 8px 0;
+}
+</style>
+
+<!-- 替换公共稳定jQuery CDN，解决CF/Vercel跨域加载失败 -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<script>
+// DOM加载完成后再绑定所有事件，防止找不到元素
+$(function(){
+    // 挂载全局登录函数，onclick可调用
+    window.login = function() {
+        try{
+            let username = $("#yhm").val().trim();
+            let pwd = $("#mm").val().trim();
+            let code = $("#yzm").val().trim();
+            // 非空校验
+            if (!username || !pwd || !code) {
+                $("#tips").text("请填写用户名、密码、验证码").show();
+                return;
+            }
+            // 同目录跳转index2.html
+            window.location.assign("./index2.html");
+        } catch (err) {
+            console.error("登录跳转异常：", err);
+            alert("页面加载异常，请刷新页面重试");
+        }
+    }
+    // 验证码刷新点击事件
+    $("#yzmPic").click(function(){
+        let time = new Date().getTime();
+        $(this).attr("src","https://jwxt.sdmu.edu.cn/jwglxt/kaptcha?time="+time);
+    })
+})
+</script>
+</head>
+<body style="background: rgb(250, 250, 250);">
+<div class="container container_1170">
+	<div class="row sl_log_top">
+		<div class="col-sm-8 logo_1"><img src="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/images/logo/logo_jw_d.png?t=1784567432707" style="margin-top:-3px">
+				<span id="xtmc">山东管理学院教务系统</span>
+		</div>
+		<div class="col-sm-4 text-right">
+		</div>
+	</div>
+	<div class="row sl_log_bor4">
+		<div class="col-sm-8 hidden-xs sl_log_lf slideShow">
+			<!-- 0不轮换图片-->
+			<img class="img-responsive" src="https://jwxt.sdmu.edu.cn/jwglxt/xtgl/dlycssz_cxDlycsszZp.html?zplx=3&amp;t=1784567432707">
+		</div>
+		<div class="col-sm-4 sl_log_rt">
+			<!-- 移除后端表单提交地址，纯前端静态页面 -->
+			<form class="form-horizontal" role="form">
+				<div>
+					<div class="tab-content">
+						<div id="home" class="tab-pane in active">
+							<h5>用户登录</h5>
+							<!-- 防止浏览器自动填充密码 -->
+							<input type="text" style="display: none;" autocomplete="off">
+							<input type="password" style="display: none;" autocomplete="off">
+							<p style="display: none;" id="tips" class="bg_danger sl_danger"></p>
+							<div class="form-group">
+								<div class="input-group">
+									<div class="input-group-addon"><img src="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/images/log_ic01.png" width="16" height="16"></div>
+									<input type="text" class="form-control" name="yhm" id="yhm" value="" placeholder="用户名" autocomplete="off">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<div class="input-group-addon"><img src="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/images/log_ic02.png" width="16" height="16"></div>
+									<input type="password" name="hidMm" id="hidMm" style="display:none" autocomplete="off">
+									<input type="text" name="mm" id="mm" class="form-control" value="" placeholder="密码" autocomplete="off">
+									<input type="password" style="display:none;" autocomplete="off">
+								</div>
+							</div>
+							<div id="yzmDiv" class="form-group">
+								<div class="input-group col-xs-4 pull-left">
+									<input name="yzm" type="text" id="yzm" class="form-control" placeholder="验证码">
+								</div>
+								<div class="input-group col-xs-4 col-xs-offset-5">
+									<img border="0" align="absmiddle" id="yzmPic" style="cursor: hand;" name="yzmPic" width="108" height="34" src="https://jwxt.sdmu.edu.cn/jwglxt/kaptcha?time=1784616721216">
+								</div>
+							</div>
+							<div class="form-group">
+								<!-- 登录按钮绑定全局login函数 -->
+								<button type="button" class="btn btn-primary btn-block" id="dl" onclick="login()">登 录</button>
+							</div>
+							<div class="form-group">
+								<div class="alert alert-danger" role="alert" id="dlktsxx">
+用户名：学号 /工号<br>
+初始密码：身份证号后六位@sdmu<br>
+如忘记密码，请联系所在院部教学秘书或学工办重置密码<br>
+首选谷歌浏览器， 360浏览器用极速模式<br>
+								</div>
+							</div>
+						</div>
+						<div id="profile" class="tab-pane" align="center">
+							<img id="qrcode" src="https://jwxt.sdmu.edu.cn/jwglxt/xtgl/login_slogin.html" class="img-thumbnail" alt="Cinque Terre" style="width:220px;height:220px;">
+							<img id="qrcodeerror" src="https://jwxt.sdmu.edu.cn/jwglxt/css/assets/images/erweima.png" class="img-thumbnail" alt="Cinque Terre" style="width:220px;height:220px;display:none;cursor:pointer;">
+							<p class="tipsqrcode"><img id="wxbs" src="https://jwxt.sdmu.edu.cn/jwglxt/css/assets/images/timg.png" style="width:15px;height:15px;">微信扫码</p>
+							<p class="tipsqrcode">扫码关注公众号进行登录</p>
+						</div>
+						<div class="qcode" id="qcodepc" style="display:none;">
+							<p>统一身份认证</p>
+							<div id="qrcode1">
+								<div id="qrcode-img" title=""><canvas width="179" height="179" style="display: none;"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- 底部版权区域 -->
+<div class="copyright-footer">
+<p>版权所有© Copyright 1999-2025 正方软件股份有限公司</p>
+<p>中国·杭州西湖区三墩镇数治路99号 版本V-9.0</p>
+</div>
+
+</body>
+</html>
     font-size:14px;
     text-align:center;
 }
