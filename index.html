@@ -26,40 +26,42 @@
 <link type="text/css" rel="stylesheet" href="https://jwxt.sdmu.edu.cn/jwglxt/css/jw-login.css?ver=29742790">
 <link rel="stylesheet" type="text/css" href="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/plugins/bootbox/css/bootbox-min.css?ver=29742790">
 <link type="text/css" rel="stylesheet" href="https://jwxt.sdmu.edu.cn/jwglxt/css/qcode.css?ver=29742790">
-<!-- 底部版权自定义样式 -->
+
+<!-- 你指定的底部版权固定样式 -->
 <style>
 /* 底部版权固定样式 */
 .copyright-footer {
-    margin-top:2px;
+    margin-top:40px;
     padding:20px 15px;
     color:#666;
-    font-size:12px;
+    font-size:14px;
     text-align:center;
 }
-.copyright-footer p{
-    margin:6px 0;
+.copyright-footer p {
+    margin: 8px 0;
 }
 </style>
-<!-- 引入jQuery用于点击事件 -->
+
+<!-- 引入jQuery -->
 <script src="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/js/jquery.min.js"></script>
 <script>
-// 登录点击跳转函数
+// 登录按钮点击事件：校验后跳转index2.html
 function login() {
-    // 简单非空校验（可选，可删除）
     let username = $("#yhm").val().trim();
     let pwd = $("#mm").val().trim();
     let code = $("#yzm").val().trim();
-    if(username === "" || pwd === "" || code === ""){
-        $("#tips").text("请填写用户名、密码、验证码").show();
+    // 空值校验
+    if (!username || !pwd || !code) {
+        $("#tips").text("请填写完整用户名、密码、验证码").show();
         return;
     }
-    // 登录成功跳转 index2.html
+    // 同目录跳转首页index2.html
     window.location.href = "index2.html";
 }
-// 验证码刷新
+// 点击验证码刷新
 $("#yzmPic").click(function(){
-    let timestamp = new Date().getTime();
-    $(this).attr("src","https://jwxt.sdmu.edu.cn/jwglxt/kaptcha?time="+timestamp);
+    let time = new Date().getTime();
+    $(this).attr("src","https://jwxt.sdmu.edu.cn/jwglxt/kaptcha?time="+time);
 })
 </script>
 </head>
@@ -78,13 +80,13 @@ $("#yzmPic").click(function(){
 			<img class="img-responsive" src="https://jwxt.sdmu.edu.cn/jwglxt/xtgl/dlycssz_cxDlycsszZp.html?zplx=3&amp;t=1784567432707">
 		</div>
 		<div class="col-sm-4 sl_log_rt">
-			<!-- 移除原表单post地址，不再提交后端 -->
+			<!-- 移除原后端提交地址，纯前端模拟登录 -->
 			<form class="form-horizontal" role="form">
 				<div>
 					<div class="tab-content">
 						<div id="home" class="tab-pane in active">
 							<h5>用户登录</h5>
-							<!-- 防止浏览器自动填充密码 -->
+							<!-- 阻止浏览器自动填充密码 -->
 							<input type="text" style="display: none;" autocomplete="off">
 							<input type="password" style="display: none;" autocomplete="off">
 							<p style="display: none;" id="tips" class="bg_danger sl_danger"></p>
@@ -111,7 +113,7 @@ $("#yzmPic").click(function(){
 								</div>
 							</div>
 							<div class="form-group">
-								<!-- 按钮绑定点击跳转事件 -->
+								<!-- 绑定登录点击函数 -->
 								<button type="button" class="btn btn-primary btn-block" id="dl" onclick="login()">登 录</button>
 							</div>
 							<div class="form-group">
@@ -143,7 +145,7 @@ $("#yzmPic").click(function(){
 	</div>
 </div>
 
-<!-- 底部版权 -->
+<!-- 底部版权HTML模块（放在容器外页面最底部） -->
 <div class="copyright-footer">
 <p>版权所有© Copyright 1999-2025 正方软件股份有限公司</p>
 <p>中国·杭州西湖区三墩镇数治路99号901室 版本V-9.0</p>
