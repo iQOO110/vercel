@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="android mobile portrait">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/plugins/bootstrap/css/bootstrap.min.css?ver=29742790">
+<link rel="stylesheet" type="text/css" href="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/css/error.css?ver=29742790">
+<link rel="stylesheet" type="text/css" href="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/css/zftal-ui.css?ver=29742790">
+<link rel="stylesheet" type="text/css" href="https://jwxt.sdmu.edu.cn/jwglxt/css/multiSelect/multiSelect.css">
+<link rel="stylesheet" type="text/css" href="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/plugins/bootbox/css/bootbox.css?ver=29742790">
+<link rel="stylesheet" type="text/css" href="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/plugins/customscrollbar/css/jquery.mCustomScrollbar.min.css?ver=29742790">
+<link rel="stylesheet" type="text/css" href="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/plugins/chosen/css/chosen-min.css?ver=29742790">
+<link rel="stylesheet" type="text/css" href="https://jwxt.sdmu.edu.cn/jwglxt/css/dynaForm/index.css?ver=29742790">
+<title>学生成绩查询</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="Copyright" content="zfsoft">
+<link rel="icon" href="https://jwxt.sdmu.edu.cn/jwglxt/xtgl/dlycssz_cxDlycsszZp.html?zplx=0&amp;t=1784567432707" type="image/x-icon">
+<link rel="shortcut icon" href="https://jwxt.sdmu.edu.cn/jwglxt/xtgl/dlycssz_cxDlycsszZp.html?zplx=0&amp;t=1784567432707" type="image/x-icon">
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/zftal-ui-v5-1.0.2/assets/js/html5shiv.min.js?ver=29742790" charset="utf-8"></script>
+<script type="text/javascript" src="/zftal-ui-v5-1.0.2/assets/js/respond.min.js?ver=29742790" charset="utf-8"></script>
+<![endif]-->
+<style>
+/* 隐藏查看链接与列 */
+a.clj {
+    display: none !important;
+}
+th#tabGrid_ck,
+td[aria-describedby="tabGrid_ck"] {
+    display: none !important;
+}
+/* 查询切换显示 */
+#div-data {
+    display: none;
+}
+#div-data.show {
+    display: block;
+}
+/* 补考蓝色文字 */
+.blue-pass {
+    color: #0044cc;
+}
+/* 底部版权固定样式 */
+.copyright-footer {
+    margin-top:40px;
+    padding:20px 15px;
+    color:#666;
+    font-size:14px;
+}
+/* 表头行底部蓝色边框 */
+.table-scroll-wrapper .table thead th {
+    border-bottom: 2px solid #0066cc;
+}
+
+/* ========== 新增/修改样式 ========== */
+/* 表格横向滚动容器：内容超出时左右滑动 */
+.table-scroll-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 8px;
+}
+/* 压缩表格行高、禁止文字换行 */
+.table-compact {
+    border: none;
+}
+.table-compact th,
+.table-compact td {
+    white-space: nowrap;
+    padding: 10px 8px;
+    line-height: 1.2;
+    vertical-align: middle;
+    border: none;
+    border-bottom: 1px solid #eee;
+}
+
+/* 表头浅灰背景 + 底部蓝色横线（对齐参考图二效果） */
+.table-compact thead th {
+    background-color: #f7f8fa;
+    border-bottom: 2px solid #007aff;
+    font-weight: normal;
+    color: #666;
+}
+</style>
+</head>
+<body>
+<div id="mobile-div" style="display:none"></div>
+	<!-- 头部 开始 -->
+	<header class="navbar-inverse top2" id="show-head">
+		<div class="container" id="navbar_container">
+			<div class="container">
+			<div class="navbar-header">
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+					<span class="sr-only"> 学生成绩查询</span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
+				</button>
+				<a href="#" id="topButton" class="navbar-brand">
+					学生成绩查询
+				</a>
+				
+			</div>
+		</div>
+		</div>
+	</header>
+	<!--头部 结束 -->
+	<div style="width: 100%; padding: 0px; margin: 0px;" id="bodyContainer">
+		<form id="requestMap"></form>
+		<div class="container container-func sl_all_bg" id="yhgnPage" style="min-height: 576px;">
+			<div id="innerContainer">
+				<div class="all-mask" style="position: fixed; top: 0; left: 0; z-index: 99; background: #f7f7f7;"></div>
+				
+<!-- 功能操作 -->
+<div class="row sl_add_btn">
+	<div class="col-sm-12">
+		<div class="col-sm-12 col-lg-12 col-md-12" style="border-width: 0px"><div class="btn-toolbar" role="toolbar" style="float: right; z-index: 1060;"><div class="btn-group" id="but_ancd"> </div> </div><div></div></div>
+	</div>
+    <div class="col-sm-12 col-md-12 ">
+		<div class="progress ajax-progress" style="display: none;">
+			<div id="progressbar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuenow="100" style="width: 0%;">0%</div>
+		</div>
+	</div>
+</div>
+<!-- 查询筛选表单 -->
+<form id="searchForm" name="searchForm" action="#" method="post" class="form-horizontal sl_all_form" novalidate="novalidate">
+<div class="row">		
+  <div class="col-md-3 col-sm-6">
+    <div class="form-group">
+      <label class="col-sm-4 control-label">学年</label>
+      <div class="col-sm-8">
+        <select name="xnm" id="xnm" class="form-control chosen-select success">
+    <option value="">全部</option>
+    <option value="2026" selected>2026-2027</option>
+    <option value="2025">2025-2026</option>
+    <option value="2024">2024-2025</option>
+    <option value="2023">2023-2024</option>
+    <option value="2022">2022-2023</option>
+    <option value="2021">2021-2022</option>
+    <option value="2020">2020-2021</option>
+    <option value="2019">2019-2020</option>
+    <option value="2018">2018-2019</option>
+    <option value="2017">2017-2018</option>
+    <option value="2016">2016-2017</option>
+    <option value="2015">2015-2016</option>
+    <option value="2014">2014-2015</option>
+</select>
+		  
+      </div>
+    </div>
+  </div>
+  
+ <div class="col-md-3 col-sm-6">
+    <div class="form-group">
+      <label class="col-sm-4 control-label">学期</label>
+      <div class="col-sm-8">
+        <select name="xqm" id="xqm" class="form-control chosen-select success">
+    <option value="">全部</option>
+    <option value="3" selected>1</option>
+    <option value="12">2</option>
+</select>
+		  
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="col-md-3 col-sm-6">
+		<div class="form-group">
+			<label class="col-sm-4 control-label">课程标记</label>
+			<div class="col-sm-8">
+				<select name="kcbjdm" id="kcbjdm_cx" class="form-control chosen-select">
+    <option value="" selected>全部</option>
+    <option value="0">主修</option>
+    <option value="1">辅修</option>
+    <option value="2">二专业</option>
+    <option value="3">二学位</option>
+    <option value="4">非学位</option>
+    <option value="8">二学位转一专</option>
+</select>
+				
+			</div>
+		</div>
+  </div>
+    
+	
+    
+    	  
+</div>
+</form>
+<!-- 查询按钮区域 -->
+<div class="row sl_aff_btn" id="searchBox">
+	
+		<div class="col-md-8 col-sm-8">
+		    <div class="form-group">
+		      <label class="col-sm-12 control-label align-left">
+		      <span class="text-danger">不合格的用红色标识，通过补考或重修及格的用蓝色标识</span>
+		      </label>
+		    </div>
+		</div>
+		<div class="col-md-4 col-sm-5">
+			<button type="button" class="btn btn-primary btn-sm" id="search_go"> 查询</button>
+		</div>
+   
+   
+</div>
+<!-- 成绩表格区域 -->
+<div id="div-data">
+    <!-- 已移除左上角排序小图标按钮 -->
+    
+    <!-- 横向滚动容器 -->
+    <div class="table-scroll-wrapper">
+        <table class="table table-compact" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>课程代码</th>
+                    <th>课程名称</th>
+                    <th>成绩</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>B030340101005</td>
+                    <td>形势与政策4</td>
+                    <td>77.5</td>
+                </tr>
+                <tr>
+                    <td>B060650704034</td>
+                    <td>网球俱乐部2</td>
+                    <td>中等</td>
+                </tr>
+                <tr>
+                    <td>B070710608019</td>
+                    <td>计算机组成与结构</td>
+                    <td>70.5</td>
+                </tr>
+               
+                <tr>
+                    <td>B070750507005</td>
+                    <td>概率论与数理统计B</td>
+                    <td>74.8</td>
+                </tr>
+                <tr>
+                    <td>B630520421015</td>
+                    <td>数学建模</td>
+                    <td>88.6</td>
+                </tr>
+                <tr>
+                    <td>B630520611095</td>
+                    <td>JavaWeb应用开发A</td>
+                    <td>81.3</td>
+                </tr>
+                <tr>
+                    <td>B630520721118</td>
+                    <td>Web应用开发综合实</td>
+                    <td>中等</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- 底部版权 -->
+<div class="copyright-footer">
+<p>版权所有© Copyright 1999-2025 正方软件股份有限公司</p>
+<p>中国·杭州西湖区三墩镇数治路99号901室 版本V-9.0</p>
+</div>
+			</div>
+		</div>
+	</div>
+
+<!-- 极简JS 仅实现点击查询显示表格，无后端请求 -->
+<script>
+document.getElementById('search_go').addEventListener('click',function(){
+    document.getElementById('div-data').classList.add('show');
+});
+</script>
+</body>
+</html>
