@@ -40,31 +40,40 @@
     margin:6px 0;
 }
 </style>
-<!-- 引入jQuery用于点击事件 -->
+<!-- 保留原有jQuery引用，不新增外部依赖 -->
 <script src="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/js/jquery.min.js"></script>
 <script>
-// DOM加载完成后执行所有绑定逻辑
-$(function(){
-    // 登录按钮点击事件（双重保障，杜绝失效）
-    $("#dl").click(function(){
-        let username = $("#yhm").val().trim();
-        let pwd = $("#mm").val().trim();
-        let code = $("#yzm").val().trim();
-        // 简单非空校验，无后端真实验证
-        if(username === "" || pwd === "" || code === ""){
-            $("#tips").text("请填写用户名、密码、验证码").show();
+// 原生JS实现登录非空验证，不依赖jQuery
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
+    const usernameInput = document.getElementById("yhm");
+    const passwordInput = document.getElementById("mm");
+    const tips = document.getElementById("tips");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (username === "") {
+            tips.textContent = "⛔用户名不能为空";
+            tips.style.display = "block";
+            usernameInput.focus();
             return;
         }
-        // 本地页面跳转
+
+        if (password === "") {
+            tips.textContent = "⛔密码不能为空";
+            tips.style.display = "block";
+            passwordInput.focus();
+            return;
+        }
+
+        tips.style.display = "none";
         window.location.href = "index2.html";
     });
-
-    // 验证码刷新绑定（DOM存在后才绑定，不会失效）
-    $("#yzmPic").click(function(){
-        let timestamp = new Date().getTime();
-        $(this).attr("src","https://jwxt.sdmu.edu.cn/jwglxt/kaptcha?time="+timestamp);
-    })
-})
+});
 </script>
 </head>
 <body style="background: rgb(250, 250, 250);">
@@ -102,7 +111,7 @@ $(function(){
 								<div class="input-group">
 									<div class="input-group-addon"><img src="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/images/log_ic02.png" width="16" height="16"></div>
 									<input type="password" name="hidMm" id="hidMm" style="display:none" autocomplete="off">
-									<input type="text" name="mm" id="mm" class="form-control" value="" placeholder="密码" autocomplete="off">
+									<input type="password" name="mm" id="mm" class="form-control" value="" placeholder="密码" autocomplete="off">
 									<input type="password" style="display:none;" autocomplete="off">
 								</div>
 							</div>
@@ -115,8 +124,10 @@ $(function(){
 								</div>
 							</div>
 							<div class="form-group">
-								<!-- 按钮移除onclick，纯jQuery绑定，彻底解决失效 -->
-								<button type="button" class="btn btn-primary btn-block" id="dl">登 录</button>
+								<!-- 登录按钮改为submit类型，移除原有onclick -->
+								<button type="submit" class="btn btn-primary btn-block" id="dl">
+								    登 录
+								</button>
 							</div>
 							<div class="form-group">
 								<div class="alert alert-danger" role="alert" id="dlktsxx">
