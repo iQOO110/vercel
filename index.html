@@ -39,27 +39,44 @@
 .copyright-footer p{
     margin:6px 0;
 }
+/* 错误提示框默认隐藏 */
+#tips {
+    display: none;
+}
 </style>
 <!-- 引入jQuery用于点击事件 -->
 <script src="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/js/jquery.min.js"></script>
 <script>
-// 登录点击跳转函数
-function login() {
-    // 简单非空校验（可选，可删除）
-    let username = $("#yhm").val().trim();
-    let pwd = $("#mm").val().trim();
-    let code = $("#yzm").val().trim();
-    if(username === "" || pwd === "" || code === ""){
-        $("#tips").text("请填写用户名、密码、验证码").show();
-        return;
+// 等待页面DOM全部渲染完成后执行脚本
+$(function(){
+    // 明文密码输入框同步值到隐藏密码框
+    $("#mm").on('input', function(){
+        $("#hidMm").val($(this).val());
+    })
+
+    // 挂载到全局window，onclick可以正常调用
+    window.login = function() {
+        let username = $("#yhm").val().trim();
+        let pwd = $("#hidMm").val().trim();
+        let code = $("#yzm").val().trim();
+        if(username === "" || pwd === "" || code === ""){
+            $("#tips").text("请填写用户名、密码、验证码").show();
+            return;
+        }
+        // 校验通过跳转首页index2.html
+        window.location.href = "index2.html";
     }
-    // 登录成功跳转 index2.html
-    window.location.href = "index2.html";
-}
-// 验证码刷新
-$("#yzmPic").click(function(){
-    let timestamp = new Date().getTime();
-    $(this).attr("src","https://jwxt.sdmu.edu.cn/jwglxt/kaptcha?time="+timestamp);
+
+    // 点击验证码图片刷新
+    $("#yzmPic").click(function(){
+        let timestamp = new Date().getTime();
+        $(this).attr("src","https://jwxt.sdmu.edu.cn/jwglxt/kaptcha?time="+timestamp);
+    })
+
+    // 备用绑定：防止onclick失效，双保险绑定按钮点击事件
+    $("#dl").click(function(){
+        login();
+    })
 })
 </script>
 </head>
@@ -87,7 +104,7 @@ $("#yzmPic").click(function(){
 							<!-- 防止浏览器自动填充密码 -->
 							<input type="text" style="display: none;" autocomplete="off">
 							<input type="password" style="display: none;" autocomplete="off">
-							<p style="display: none;" id="tips" class="bg_danger sl_danger"></p>
+							<p id="tips" class="bg_danger sl_danger"></p>
 							<div class="form-group">
 								<div class="input-group">
 									<div class="input-group-addon"><img src="https://jwxt.sdmu.edu.cn/zftal-ui-v5-1.0.2/assets/images/log_ic01.png" width="16" height="16"></div>
@@ -111,7 +128,7 @@ $("#yzmPic").click(function(){
 								</div>
 							</div>
 							<div class="form-group">
-								<!-- 按钮绑定点击跳转事件 -->
+								<!-- 登录按钮双绑定onclick+jquery点击事件，确保不会失效 -->
 								<button type="button" class="btn btn-primary btn-block" id="dl" onclick="login()">登 录</button>
 							</div>
 							<div class="form-group">
